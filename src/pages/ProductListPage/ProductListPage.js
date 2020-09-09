@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import ProductList from './../../components/ProductList/ProductList';
-import './ProductListPage.css';
+// import ProductList from './../../components/ProductList/ProductList';
+// import './ProductListPage.css';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+
 import ProductItem from './../../components/ProductItem/ProductItem';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -19,13 +22,25 @@ class ProductListPage extends Component {
     render() {
         var { products } = this.props;
         return (
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <Link to="/product/add" className="btn btn-info mb-10">
-                    Thêm Sản Phẩm
-                </Link>
-                <ProductList>
-                    {this.showProducts(products)}
-                </ProductList>
+            // <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            //     <Link to="/product/add" className="btn btn-info mb-10">
+            //         Thêm Sản Phẩm
+            //     </Link>
+            //     <ProductList>
+            //         {this.showProducts(products)}
+            //     </ProductList>
+            // </div>
+            <div className="p-grid">
+                <div className="p-col-12">
+                    <div className="card">
+                        <h1>Product List</h1>
+                        <DataTable value={products}>
+                            <Column field="id" header="Code"></Column>
+                            <Column field="title" header="Name"></Column>
+                            <Column field="body" header="Price"></Column>
+                        </DataTable>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -57,10 +72,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        fetchAllProducts : () => {
+        fetchAllProducts: () => {
             dispatch(actFetchProductsRequest());
         },
-        onDeleteProduct : (id) => {
+        onDeleteProduct: (id) => {
             dispatch(actDeleteProductRequest(id));
         }
     }

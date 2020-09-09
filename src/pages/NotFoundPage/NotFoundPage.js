@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 
-class NotFoundPage extends Component {
+export class NotFoundPage extends Component {
+
     render() {
         return (
-            <div className="container">
-                <div className="alert alert-warning">
-                    <button type="button" className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Không Tìm Thấy Trang</strong>
+            <div className="p-grid">
+                <div className="p-col-12">
+                    <div className="card">
+                        <h1>Sorry! Page Not Found.</h1>
+                        <p>Maybe this page moved or deleted? </p>
+                        <p>Let's go <a href="/">home</a> and try from there.</p>
+                    </div>
                 </div>
             </div>
         );

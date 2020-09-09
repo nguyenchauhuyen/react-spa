@@ -4,10 +4,12 @@ import App from './components/App/App';
 import { createStore, applyMiddleware } from 'redux';
 import appReducers from './reducers/index';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import thunk from 'redux-thunk';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'jquery';
-import 'bootstrap/dist/js/bootstrap.min.js';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'jquery';
+// import 'bootstrap/dist/js/bootstrap.min.js';
+import './styles/styles.scss';
 
 const store = createStore(
     appReducers,
@@ -17,7 +19,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
-    </Provider>, 
+        <Router><App /></Router>
+    </Provider>,
     document.getElementById('root')
 );
