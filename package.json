@@ -15,7 +15,7 @@
         "@fullcalendar/daygrid": "^4.4.2",
         "@fullcalendar/interaction": "^4.4.2",
         "@fullcalendar/timegrid": "^4.4.2",
-        "axios": "^0.17.1",
+        "axios": "^0.18.1",
         "bootstrap": "^3.3.7",
         "chart.js": "^2.9.3",
         "classnames": "^2.2.6",
