@@ -1,5 +1,12 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
+
+// const isEnvDevelopment = process.env.NODE_ENV === 'development';
+// const isEnvProduction = process.env.NODE_ENV === 'production';
+const devMode = process.env.NODE_ENV !== 'production';
 
 const VENDOR_LIBS = [
   'axios',
@@ -13,21 +20,8 @@ const VENDOR_LIBS = [
   'classnames',
   'react-transition-group',
 ];
-const devServer = {
-  port: 4000,
-  open: true,
-  historyApiFallback: true,
-};
 
 module.exports = {
-  entry: {
-    bundle: './src/index.js',
-    vendor: VENDOR_LIBS,
-  },
-  output: {
-    path: path.join(__dirname, 'build'),
-    filename: '[name].[chunkhash].js',
-  },
   module: {
     rules: [
       {
@@ -46,17 +40,23 @@ module.exports = {
         ],
       },
       {
-        use: ['style-loader', 'css-loader'],
-        test: /\.css$/,
-      },
-      {
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-        test: /\.scss$/,
+        test: /\.s?[ac]ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { url: false, sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } },
+        ],
       },
       {
         loader: 'file-loader',
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$|\.wav$|\.mp3$|\.ico$/,
       },
+      // ESLint
+      // {
+      //   test: /\.(js)$/,
+      //   exclude: /node_modules/,
+      //   use: ['babel-loader', 'eslint-loader'],
+      // },
     ],
   },
   optimization: {
@@ -72,10 +72,31 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html',
     }),
-  ],
-  devServer,
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+    }),
+  ].filter(Boolean),
+  entry: {
+    bundle: './src/index.js',
+    vendor: VENDOR_LIBS,
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    filename: '[name].[hash].js',
+  },
+  devServer: {
+    contentBase: './dist',
+    port: 4000,
+    open: true,
+    historyApiFallback: true,
+    hot: true,
+  },
+  mode: devMode ? 'development' : 'production',
 };
