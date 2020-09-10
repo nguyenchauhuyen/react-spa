@@ -11,7 +11,7 @@ import  ProductListPage  from '../../pages/ProductListPage/ProductListPage';
 import  ProductActionPage from '../../pages/ProductActionPage/ProductActionPage';
 
 // import {DataDemo} from './components/DataDemo';
-import 'primereact/resources/themes/nova/theme.css';
+import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
