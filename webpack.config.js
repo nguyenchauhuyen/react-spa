@@ -17,6 +17,7 @@ const VENDOR_LIBS = [
 const devServer = {
   port: 4000,
   open: true,
+  historyApiFallback: true,
 };
 
 module.exports = {
