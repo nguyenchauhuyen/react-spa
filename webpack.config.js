@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 // const isEnvDevelopment = process.env.NODE_ENV === 'development';
@@ -80,6 +81,14 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: './src/assets',
+          to: './assets',
+        },
+      ],
     }),
   ].filter(Boolean),
   entry: {
