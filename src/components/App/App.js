@@ -7,10 +7,9 @@ import { SideMenu } from '../Menu/SideMenu';
 import { Route, Switch } from 'react-router-dom';
 import { Dashboard } from '../../pages/HomePage/HomePage';
 import { FormDemo } from '../../pages/FormDemo/FormDemo';
-import  ProductListPage  from '../../pages/ProductListPage/ProductListPage';
-import  ProductActionPage from '../../pages/ProductActionPage/ProductActionPage';
+import ProductListPage from '../../pages/ProductListPage/ProductListPage';
+import ProductActionPage from '../../pages/ProductActionPage/ProductActionPage';
 
-// import {DataDemo} from './components/DataDemo';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
@@ -23,7 +22,6 @@ import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 // import './App.scss';
 
 class App extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -31,7 +29,7 @@ class App extends Component {
             layoutColorMode: 'light',
             staticMenuInactive: false,
             overlayMenuActive: false,
-            mobileMenuActive: false
+            mobileMenuActive: false,
         };
 
         this.onWrapperClick = this.onWrapperClick.bind(this);
@@ -41,11 +39,11 @@ class App extends Component {
         this.createMenu();
     }
 
-    onWrapperClick(event) {
+    onWrapperClick() {
         if (!this.menuClick) {
             this.setState({
                 overlayMenuActive: false,
-                mobileMenuActive: false
+                mobileMenuActive: false,
             });
         }
 
@@ -58,26 +56,24 @@ class App extends Component {
         if (this.isDesktop()) {
             if (this.state.layoutMode === 'overlay') {
                 this.setState({
-                    overlayMenuActive: !this.state.overlayMenuActive
+                    overlayMenuActive: !this.state.overlayMenuActive,
                 });
-            }
-            else if (this.state.layoutMode === 'static') {
+            } else if (this.state.layoutMode === 'static') {
                 this.setState({
-                    staticMenuInactive: !this.state.staticMenuInactive
+                    staticMenuInactive: !this.state.staticMenuInactive,
                 });
             }
-        }
-        else {
+        } else {
             const mobileMenuActive = this.state.mobileMenuActive;
             this.setState({
-                mobileMenuActive: !mobileMenuActive
+                mobileMenuActive: !mobileMenuActive,
             });
         }
 
         event.preventDefault();
     }
 
-    onSidebarClick(event) {
+    onSidebarClick() {
         this.menuClick = true;
     }
 
@@ -85,8 +81,8 @@ class App extends Component {
         if (!event.item.items) {
             this.setState({
                 overlayMenuActive: false,
-                mobileMenuActive: false
-            })
+                mobileMenuActive: false,
+            });
         }
     }
 
@@ -94,21 +90,25 @@ class App extends Component {
         this.menu = [
             { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
             {
-                label: 'Menu Modes', icon: 'pi pi-fw pi-cog',
+                label: 'Menu Modes',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     { label: 'Static Menu', icon: 'pi pi-fw pi-bars', command: () => this.setState({ layoutMode: 'static' }) },
-                    { label: 'Overlay Menu', icon: 'pi pi-fw pi-bars', command: () => this.setState({ layoutMode: 'overlay' }) }
-                ]
+                    { label: 'Overlay Menu', icon: 'pi pi-fw pi-bars', command: () => this.setState({ layoutMode: 'overlay' }) },
+                ],
             },
             {
-                label: 'Menu Colors', icon: 'pi pi-fw pi-align-left',
+                label: 'Menu Colors',
+                icon: 'pi pi-fw pi-align-left',
                 items: [
                     { label: 'Dark', icon: 'pi pi-fw pi-bars', command: () => this.setState({ layoutColorMode: 'dark' }) },
-                    { label: 'Light', icon: 'pi pi-fw pi-bars', command: () => this.setState({ layoutColorMode: 'light' }) }
-                ]
+                    { label: 'Light', icon: 'pi pi-fw pi-bars', command: () => this.setState({ layoutColorMode: 'light' }) },
+                ],
             },
             {
-                label: 'Components', icon: 'pi pi-fw pi-globe', badge: '9',
+                label: 'Components',
+                icon: 'pi pi-fw pi-globe',
+                badge: '9',
                 items: [
                     { label: 'Sample Page', icon: 'pi pi-fw pi-th-large', to: '/sample' },
                     { label: 'Forms', icon: 'pi pi-fw pi-file', to: '/forms' },
@@ -118,76 +118,82 @@ class App extends Component {
                     { label: 'Menus', icon: 'pi pi-fw pi-plus', to: '/menus' },
                     { label: 'Messages', icon: 'pi pi-fw pi-spinner', to: '/messages' },
                     { label: 'Charts', icon: 'pi pi-fw pi-chart-bar', to: '/charts' },
-                    { label: 'Misc', icon: 'pi pi-fw pi-upload', to: '/misc' }
-                ]
+                    { label: 'Misc', icon: 'pi pi-fw pi-upload', to: '/misc' },
+                ],
             },
             {
-                label: 'Template Pages', icon: 'pi pi-fw pi-file',
-                items: [
-                    { label: 'Empty Page', icon: 'pi pi-fw pi-circle-off', to: '/empty' }
-                ]
+                label: 'Template Pages',
+                icon: 'pi pi-fw pi-file',
+                items: [{ label: 'Empty Page', icon: 'pi pi-fw pi-circle-off', to: '/empty' }],
             },
             {
-                label: 'Menu Hierarchy', icon: 'pi pi-fw pi-search',
+                label: 'Menu Hierarchy',
+                icon: 'pi pi-fw pi-search',
                 items: [
                     {
-                        label: 'Submenu 1', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Submenu 1',
+                        icon: 'pi pi-fw pi-bookmark',
                         items: [
                             {
-                                label: 'Submenu 1.1', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Submenu 1.1',
+                                icon: 'pi pi-fw pi-bookmark',
                                 items: [
                                     { label: 'Submenu 1.1.1', icon: 'pi pi-fw pi-bookmark' },
                                     { label: 'Submenu 1.1.2', icon: 'pi pi-fw pi-bookmark' },
                                     { label: 'Submenu 1.1.3', icon: 'pi pi-fw pi-bookmark' },
-                                ]
+                                ],
                             },
                             {
-                                label: 'Submenu 1.2', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Submenu 1.2',
+                                icon: 'pi pi-fw pi-bookmark',
                                 items: [
                                     { label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark' },
-                                    { label: 'Submenu 1.2.2', icon: 'pi pi-fw pi-bookmark' }
-                                ]
+                                    { label: 'Submenu 1.2.2', icon: 'pi pi-fw pi-bookmark' },
+                                ],
                             },
-                        ]
+                        ],
                     },
                     {
-                        label: 'Submenu 2', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Submenu 2',
+                        icon: 'pi pi-fw pi-bookmark',
                         items: [
                             {
-                                label: 'Submenu 2.1', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Submenu 2.1',
+                                icon: 'pi pi-fw pi-bookmark',
                                 items: [
                                     { label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark' },
                                     { label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark' },
                                     { label: 'Submenu 2.1.3', icon: 'pi pi-fw pi-bookmark' },
-                                ]
+                                ],
                             },
                             {
-                                label: 'Submenu 2.2', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Submenu 2.2',
+                                icon: 'pi pi-fw pi-bookmark',
                                 items: [
                                     { label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark' },
-                                    { label: 'Submenu 2.2.2', icon: 'pi pi-fw pi-bookmark' }
-                                ]
-                            }
-                        ]
-                    }
-                ]
+                                    { label: 'Submenu 2.2.2', icon: 'pi pi-fw pi-bookmark' },
+                                ],
+                            },
+                        ],
+                    },
+                ],
             },
             // { label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => { window.location = "#/documentation" } },
         ];
     }
 
     addClass(element, className) {
-        if (element.classList)
-            element.classList.add(className);
-        else
-            element.className += ' ' + className;
+        if (element.classList) element.classList.add(className);
+        else element.className += ' ' + className;
     }
 
     removeClass(element, className) {
-        if (element.classList)
-            element.classList.remove(className);
+        if (element.classList) element.classList.remove(className);
         else
-            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            element.className = element.className.replace(
+                new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'),
+                ' ',
+            );
     }
 
     isDesktop() {
@@ -195,10 +201,8 @@ class App extends Component {
     }
 
     componentDidUpdate() {
-        if (this.state.mobileMenuActive)
-            this.addClass(document.body, 'body-overflow-hidden');
-        else
-            this.removeClass(document.body, 'body-overflow-hidden');
+        if (this.state.mobileMenuActive) this.addClass(document.body, 'body-overflow-hidden');
+        else this.removeClass(document.body, 'body-overflow-hidden');
     }
 
     render() {
@@ -209,19 +213,19 @@ class App extends Component {
             'layout-static': this.state.layoutMode === 'static',
             'layout-static-sidebar-inactive': this.state.staticMenuInactive && this.state.layoutMode === 'static',
             'layout-overlay-sidebar-active': this.state.overlayMenuActive && this.state.layoutMode === 'overlay',
-            'layout-mobile-sidebar-active': this.state.mobileMenuActive
+            'layout-mobile-sidebar-active': this.state.mobileMenuActive,
         });
 
-        const sidebarClassName = classNames("layout-sidebar", {
+        const sidebarClassName = classNames('layout-sidebar', {
             'layout-sidebar-dark': this.state.layoutColorMode === 'dark',
-            'layout-sidebar-light': this.state.layoutColorMode === 'light'
+            'layout-sidebar-light': this.state.layoutColorMode === 'light',
         });
 
         return (
             <div className={wrapperClass} onClick={this.onWrapperClick}>
                 <Header onToggleMenu={this.onToggleMenu} />
 
-                <div ref={(el) => this.sidebar = el} className={sidebarClassName} onClick={this.onSidebarClick}>
+                <div ref={el => (this.sidebar = el)} className={sidebarClassName} onClick={this.onSidebarClick}>
                     <div className="layout-logo">
                         <img alt="Logo" src={logo} />
                     </div>
