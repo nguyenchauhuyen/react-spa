@@ -1,7 +1,7 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
@@ -41,13 +41,17 @@ module.exports = {
         ],
       },
       {
-        test: /\.s?[ac]ss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { url: false, sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } },
-        ],
+        test: /\.(s*)css$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      // {
+      //   test: /\.css$|\.(scss|sass)$/,
+      //   use: [
+      //     MiniCssExtractPlugin.loader,
+      //     { loader: 'css-loader', options: { url: false, sourceMap: true } },
+      //     { loader: 'sass-loader', options: { sourceMap: true } },
+      //   ],
+      // },
       {
         loader: 'file-loader',
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$|\.wav$|\.mp3$|\.ico$/,
@@ -79,9 +83,9 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html',
     }),
-    new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-    }),
+    // new MiniCssExtractPlugin({
+    //   filename: '[name].[hash].css',
+    // }),
     new CopyWebpackPlugin({
       patterns: [
         {
