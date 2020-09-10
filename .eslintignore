@@ -1,0 +1,16 @@
+build
+yarn.lock
+package-lock.json
+.vscode
+coverage
+node_modules
+config
+yarn-error.log
+dist
+*.scss
+*.css
+*.md
+__mocks__
+__test__
+__tests__
+*.test.*
