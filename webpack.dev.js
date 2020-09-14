@@ -21,7 +21,7 @@ module.exports = merge(common, {
       },
       {
         test: /\.(bmp|jpe?g|png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-        loader: require.resolve('url-loader'),
+        loader: 'url-loader',
         options: {
           limit: 10000,
           name: 'media/[name].[ext]',
