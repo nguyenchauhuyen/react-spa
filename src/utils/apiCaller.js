@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as Config from './../constants/Config';
 
-export default function callApi(endpoint, method = 'GET', body) {
+export function callApi(endpoint, method = 'GET', body) {
   return axios({
     method: method,
     url: `${Config.API_URL}/${endpoint}`,
@@ -10,3 +10,13 @@ export default function callApi(endpoint, method = 'GET', body) {
     console.log(err);
   });
 }
+
+export async function callApiAsync(endpoint, method = 'GET', body) {
+  const res = await axios({
+    method: method,
+    url: `${Config.API_URL}/${endpoint}`,
+    data: body,
+  });
+  return res;
+}
+

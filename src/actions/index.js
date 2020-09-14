@@ -1,5 +1,5 @@
 import * as Types from './../constants/ActionTypes';
-import callApi from './../utils/apiCaller';
+import {callApi, callApiAsync} from './../utils/apiCaller';
 
 export const actFetchProductsRequest = () => {
   return dispatch => {
@@ -33,10 +33,18 @@ export const actDeleteProduct = id => {
 };
 
 export const actAddProductRequest = product => {
-  return dispatch => {
-    return callApi('products', 'POST', product).then(res => {
+  return (dispatch) => {
+    return callApi('posts', 'POST', product).then(res => {
+      console.log(res)
       dispatch(actAddProduct(res.data));
+      return res;
     });
+    // const res = callApiAsync('posts', 'POST', product);
+
+    // if(res) {
+    //   dispatch(actAddProduct(res.data));
+    //   return await Promise.resolve(1);
+    // }
   };
 };
 
