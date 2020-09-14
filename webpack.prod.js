@@ -32,6 +32,14 @@ module.exports = merge(common, {
         test: /\.(css|scss|sass)$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      {
+        test: /\.(bmp|jpe?g|png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'media/[name].[ext]',
+        },
+      },
     ],
   },
   plugins: [
