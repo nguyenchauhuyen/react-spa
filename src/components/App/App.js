@@ -6,10 +6,9 @@ import { SideMenu } from '../Menu/SideMenu';
 // import {AppProfile} from './AppProfile';
 import { Route, Switch } from 'react-router-dom';
 import Dashboard from '../../pages/HomePage/HomePage';
-import { FormDemo } from '../../pages/FormDemo/FormDemo';
+import FormDemo from '../../pages/FormDemo/FormDemo';
 import ProductListPage from '../../pages/ProductListPage/ProductListPage';
 import ProductActionPage from '../../pages/ProductActionPage/ProductActionPage';
-
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
