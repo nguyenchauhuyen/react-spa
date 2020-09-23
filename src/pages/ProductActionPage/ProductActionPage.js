@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,11 +28,11 @@ import { Dialog } from 'primereact/dialog';
 import { Messages } from 'primereact/messages';
 import { Message } from 'primereact/message';
 import { ProgressSpinner } from 'primereact/progressspinner';
-import { withFormik } from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
 import ErrorFocus from '../../components/Error/ErrorFocus';
 
-const ProductActionPage = (props) => {
+const ProductActionPage = props => {
   const { itemEditing } = useSelector(state => ({
     itemEditing: state.itemEditing,
   }));
@@ -280,16 +280,31 @@ const ProductActionPage = (props) => {
   //   history.goBack();
   // };
 
+  // const {
+  //   // values,
+  //   touched,
+  //   errors,
+  //   handleChange,
+  //   handleBlur,
+  //   handleSubmit,
+  //   isSubmitting
+  // } = props;
 
-  const {
-    // values,
-    touched,
-    errors,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    isSubmitting
-  } = props;
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+    },
+    validationSchema: validateSchema,
+    onSubmit: (values, actions) => {
+      console.log(JSON.stringify(values, null, 2));
+      dispatch(actAddProductRequest(JSON.stringify(values, null, 2)));
+      // setTimeout(() => {
+      //   alert(JSON.stringify(values, null, 2));
+      //   actions.setSubmitting(false);
+      // }, 1000);
+    },
+  });
 
   return (
     <div className="p-fluid">
@@ -317,25 +332,42 @@ const ProductActionPage = (props) => {
                   <label htmlFor="input">Input</label>
                 </div>
                 <div className="p-col-12 p-md-4">
-                  <InputText name="name"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.name} />
-                  {errors.name && touched.name && <small className="p-invalid">Name is not available.</small>}
+                  <InputText
+                    name="name"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.name}
+                  />
+                  {formik.errors.name && formik.touched.name && (
+                    <small className="p-invalid">Name is not available.</small>
+                  )}
                 </div>
                 <div className="p-col-12 p-md-2">
                   <label htmlFor="textarea">Textarea</label>
                 </div>
                 <div className="p-col-12 p-md-4">
-                  <InputTextarea name="email" rows={3} cols={30} autoResize={true} onChange={handleChange}
-                    onBlur={handleBlur} value={values.email}></InputTextarea>
-                  {errors.email && touched.email && <small className="p-invalid">Email is not available.</small>}
+                  <InputTextarea
+                    name="email"
+                    rows={3}
+                    cols={30}
+                    autoResize={true}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
+                  ></InputTextarea>
+                  {formik.errors.email && formik.touched.email && (
+                    <small className="p-invalid">Email is not available.</small>
+                  )}
                 </div>
                 <div className="p-col-12 p-md-2">
                   <label htmlFor="calendar">Calendar</label>
                 </div>
                 <div className="p-col-12 p-md-4">
-                  <Calendar id="calendar" value={values.date} onChange={event => this.setState({ date: event.value })}></Calendar>
+                  <Calendar
+                    id="calendar"
+                    value={values.date}
+                    onChange={event => this.setState({ date: event.value })}
+                  ></Calendar>
                 </div>
                 {/* <div className="p-col-12 p-md-2">
                 <label htmlFor="autocomplete">AutoComplete</label>
@@ -364,140 +396,32 @@ const ProductActionPage = (props) => {
                 <div className="p-col-12 p-md-4">
                   <InputMask id="mask" mask="99/99/9999" slotChar="dd/mm/yyyy" placeholder="Date" />
                 </div>
-                {/* <div className="p-col-12 p-md-2">
-                <label htmlFor="spinner">Spinner</label>
-              </div>
-              <div className="p-col-12 p-md-4">
-                <Spinner value={this.state.spinnerValue} onChange={event => this.setState({ spinnerValue: event.value })} />
-              </div> */}
-
-                <div className="p-col-12 p-md-2">
-                  Checkbox
-                              </div>
-                <div className="p-col-12 p-md-4">
-                  {/* <div className="p-grid">
-                    <div className="p-col-12">
-                      <Checkbox value="Ultima" inputId="cb1" onChange={this.onCheckboxChange} checked={this.state.checkboxValue.indexOf('Ultima') > -1} />
-                      <label htmlFor="cb1" className="p-checkbox-label">Ultima</label>
-                    </div>
-                    <div className="p-col-12">
-                      <Checkbox value="Avalon" inputId="cb2" onChange={this.onCheckboxChange} checked={this.state.checkboxValue.indexOf('Avalon') > -1} />
-                      <label htmlFor="cb2" className="p-checkbox-label">Avalon</label>
-                    </div>
-                    <div className="p-col-12">
-                      <Checkbox value="Serenity" inputId="cb3" onChange={this.onCheckboxChange} checked={this.state.checkboxValue.indexOf('Serenity') > -1} />
-                      <label htmlFor="cb3" className="p-checkbox-label">Serenity</label>
-                    </div>
-                  </div> */}
-                </div>
-                <div className="p-col-12 p-md-2">
-                  RadioButton
-                              </div>
-                <div className="p-col-12 p-md-4">
-                  {/* <div className="p-grid">
-                    <div className="p-col-12">
-                      <RadioButton value="Ultima" inputId="rb1" onChange={event => this.setState({ radioValue: event.value })} checked={this.state.radioValue === "Ultima"} />
-                      <label htmlFor="rb1" className="p-radiobutton-label">Ultima</label>
-                    </div>
-                    <div className="p-col-12">
-                      <RadioButton value="Avalon" inputId="rb2" onChange={event => this.setState({ radioValue: event.value })} checked={this.state.radioValue === "Avalon"} />
-                      <label htmlFor="rb2" className="p-radiobutton-label">Avalon</label>
-                    </div>
-                    <div className="p-col-12">
-                      <RadioButton value="Serenity" inputId="rb3" onChange={event => this.setState({ radioValue: event.value })} checked={this.state.radioValue === "Serenity"} />
-                      <label htmlFor="rb3" className="p-radiobutton-label">Serenity</label>
-                    </div>
-                  </div> */}
-                </div>
-                <div className="p-col-12 p-md-2">
-                  <label htmlFor="slider">Slider</label>
-                </div>
-                <div className="p-col-12 p-md-4">
-                  {/* <Slider id="slider" value={this.state.sliderValue} onChange={event => this.setState({ sliderValue: event.value })} /> */}
-                </div>
-                <div className="p-col-12 p-md-2">
-                  Button
-                              </div>
-                <div className="p-col-12 p-md-4">
-                  <Button label="Edit" icon="pi pi-pencil" />
-                </div>
-                <div className="p-col-12 p-md-2">
-                  SplitButton
-                              </div>
-                <div className="p-col-12 p-md-4">
-                  <SplitButton label="Save" icon="pi pi-plus" model={values.splitButtonItems} />
-                </div>
-                <div className="p-col-12 p-md-2">
-                  <label htmlFor="multiselect">MultiSelect</label>
-                </div>
-                <div className="p-col-12 p-md-4">
-                  <MultiSelect id="multiselect" placeholder="Choose" value={values.selectedCars} options={values.carOptions} onChange={event => this.setState({ selectedCars: event.value })} />
-                </div>
-                <div className="p-col-12 p-md-2">
-                  ToggleButton
-                              </div>
-                <div className="p-col-12 p-md-4">
-                  <ToggleButton checked={values.toggleButtonValue} onChange={event => this.setState({ toggleButtonValue: event.value })} />
-                </div>
-                <div className="p-col-12 p-md-2">
-                  SelectButton
-                              </div>
-                <div className="p-col-12 p-md-4">
-                  <SelectButton value={values.selectedType} options={values.types} onChange={event => this.setState({ selectedType: event.value })} />
-                </div>
-                <div className="p-col-12 p-md-2">
-                  <label htmlFor="listbox">ListBox</label>
-                </div>
-                <div className="p-col-12 p-md-4">
-                  <ListBox value={values.listBoxCity} options={values.listBoxCities} onChange={event => this.setState({ listBoxCity: event.value })} filter={true} />
-                </div>
-                {/* <div className="p-col-12 p-md-2">
-                Dialog
-                              </div>
-              <div className="p-col-12 p-md-4">
-                <Button label="Login" icon="pi pi-external-link" onClick={() => this.setState({ dialogVisible: true })} />
-              </div> */}
-
-                <div className="p-col-12 p-md-12">
-                  <h1></h1>
-                </div>
-                <div className="p-col-12 p-md-8">
-                </div>
-                <div className="p-col-12 p-md-2"  >
-                </div>
                 <div className="p-col-12 p-md-2" style={{ textAlign: 'right' }}>
-                  {isSubmitting && <ProgressSpinner style={{ width: '40px', height: '40px' }} strokeWidth="8" fill="#EEEEEE" animationDuration=".5s" />}
-                  {!isSubmitting && <Button type="submit" label="Save" icon="pi pi-check" onClick={handleSubmit} disabled={isSubmitting} />}
-                  <ErrorFocus/>
+                  {formik.isSubmitting && (
+                    <ProgressSpinner
+                      style={{ width: '40px', height: '40px' }}
+                      strokeWidth="8"
+                      fill="#EEEEEE"
+                      animationDuration=".5s"
+                    />
+                  )}
+                  {!formik.isSubmitting && (
+                    <Button type="submit" label="Save" icon="pi pi-check" onClick={formik.handleSubmit} />
+                  )}
+                  {/* <ErrorFocus/> */}
                 </div>
               </div>
             </form>
-            {/* <Dialog header="Login" visible={this.state.dialogVisible} footer={dialogFooter} onHide={() => this.setState({ dialogVisible: false })}>
-              <div className="p-grid">
-                <div className="p-col-12">
-                  <InputText placeholder="Username" />
-                </div>
-                <div className="p-col-12">
-                  <InputText placeholder="Password" />
-                </div>
-              </div>
-            </Dialog> */}
           </div>
-
         </div>
       </div>
     </div>
   );
 };
 
-
 const validateSchema = yup.object({
-  email: yup.string()
-    .required('Required').email('should be email')
-    .min(4, 'Min 4'),
-  name: yup.string()
-    .required()
-    .min(8),
+  email: yup.string().required('Required').email('should be email').min(4, 'Min 4'),
+  name: yup.string().required().min(8),
   // rating: yup.string()
   //     .required()
   //     .test('is-num-1-5', 'Rating must be a number 1 - 5', (val) => {
@@ -505,21 +429,21 @@ const validateSchema = yup.object({
   //     }),
 });
 
-const Form = withFormik({
-  mapPropsToValues: () => ({ name: '', email: '' }),
-  validationSchema: validateSchema,
-  handleSubmit(values, { props, setSubmitting }) {
-    // const { actAddProductRequest } = props;
-    console.log('submit');
+// const Form = withFormik({
+//   mapPropsToValues: () => ({ name: '', email: '' }),
+//   validationSchema: validateSchema,
+//   handleSubmit(values, { props, setSubmitting }) {
+//     // const { actAddProductRequest } = props;
+//     console.log('submit');
 
-    const dispatch = useDispatch();
-    console.log('submit2');
+//     const dispatch = useDispatch();
+//     console.log('submit2');
 
-    const payload = { email: values.email, name: values.name };
-    console.log('submit3');
-    dispatch(actAddProductRequest(payload)).then(() => setSubmitting(false))
-  },
-})(ProductActionPage);
+//     const payload = { email: values.email, name: values.name };
+//     console.log('submit3');
+//     dispatch(actAddProductRequest(payload)).then(() => setSubmitting(false))
+//   },
+// })(ProductActionPage);
 
 // const mapStateToProps = state => {
 //   return {
@@ -527,4 +451,4 @@ const Form = withFormik({
 //   };
 // };
 
-export default Form;
+export default ProductActionPage;
