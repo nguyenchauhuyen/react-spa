@@ -35,23 +35,29 @@ export const actDeleteProduct = id => {
 
 export const actAddProductRequest = product => {
   return async dispatch => {
-    // return callApi('posts', 'POST', product).then(res => {
-    //   console.log(res)
-    //   dispatch(actAddProduct(res.data));
-    //   return res;
-    // });
-    // console.log('EEEE')
-    // const res = await callApiAsync('posts', 'POST', product);
-    const res = await axios({
-      method: 'POST',
-      url: `${Config.API_URL}/${product}`,
-      data: body,
-    });
-
-    if (res) {
-      dispatch(actAddProduct(res.data));
-      // return await Promise.resolve(1);
+    try {
+      const res = await callApi('posts', 'POST', product);
+      console.log('res: ', res);
+      dispatch({
+        type: Types.ADD_PRODUCT,
+        product: res.data,
+      });
+    } catch (e) {
+      console.log('error: ', e);
     }
+    // const res = await callApiAsync('posts', 'POST', product);
+    // const res = await axios({
+    //   method: 'POST',
+    //   url: `${Config.API_URL}/${product}`,
+    //   data: body,
+    // });
+
+    // console.log(res);
+
+    // if (res) {
+    //   dispatch(actAddProduct(res.data));
+    //   // return await Promise.resolve(1);
+    // }
   };
 };
 

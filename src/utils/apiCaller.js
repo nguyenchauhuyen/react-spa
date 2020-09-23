@@ -19,4 +19,3 @@ export async function callApiAsync(endpoint, method = 'GET', body) {
   });
   return res;
 }
-

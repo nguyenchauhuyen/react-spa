@@ -290,20 +290,18 @@ const ProductActionPage = props => {
   //   isSubmitting
   // } = props;
 
+  const handleSubmit = () => {
+    console.log('payload: ', values);
+    dispatch(actAddProductRequest(JSON.stringify(values, null, 2)));
+  };
+
   const formik = useFormik({
     initialValues: {
       name: '',
       email: '',
     },
     validationSchema: validateSchema,
-    onSubmit: (values, actions) => {
-      console.log(JSON.stringify(values, null, 2));
-      dispatch(actAddProductRequest(JSON.stringify(values, null, 2)));
-      // setTimeout(() => {
-      //   alert(JSON.stringify(values, null, 2));
-      //   actions.setSubmitting(false);
-      // }, 1000);
-    },
+    onSubmit: handleSubmit,
   });
 
   return (
@@ -366,7 +364,7 @@ const ProductActionPage = props => {
                   <Calendar
                     id="calendar"
                     value={values.date}
-                    onChange={event => this.setState({ date: event.value })}
+                    onChange={event => setValues({ ...values, date: event.value })}
                   ></Calendar>
                 </div>
                 {/* <div className="p-col-12 p-md-2">
