@@ -255,30 +255,30 @@ const ProductActionPage = (props) => {
     setValues(newValues);
   }, [itemEditing]);
 
-  const onChange = e => {
-    var target = e.target;
-    var name = target.name;
-    var value = target.type === 'checkbox' ? target.checked : target.value;
-    setValues(values => ({ ...values, [name]: value }));
-  };
+  // const onChange = e => {
+  //   var target = e.target;
+  //   var name = target.name;
+  //   var value = target.type === 'checkbox' ? target.checked : target.value;
+  //   setValues(values => ({ ...values, [name]: value }));
+  // };
 
-  const onSave = e => {
-    e.preventDefault();
-    var { id, txtName, txtPrice, chkbStatus } = this.state;
-    var { history } = this.props;
-    var product = {
-      id: id,
-      name: txtName,
-      price: txtPrice,
-      status: chkbStatus,
-    };
-    if (id) {
-      this.props.onUpdateProduct(product);
-    } else {
-      this.props.onAddProduct(product);
-    }
-    history.goBack();
-  };
+  // const onSave = e => {
+  //   e.preventDefault();
+  //   var { id, txtName, txtPrice, chkbStatus } = this.state;
+  //   var { history } = this.props;
+  //   var product = {
+  //     id: id,
+  //     name: txtName,
+  //     price: txtPrice,
+  //     status: chkbStatus,
+  //   };
+  //   if (id) {
+  //     this.props.onUpdateProduct(product);
+  //   } else {
+  //     this.props.onAddProduct(product);
+  //   }
+  //   history.goBack();
+  // };
 
 
   const {
