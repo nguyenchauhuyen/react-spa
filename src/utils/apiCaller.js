@@ -10,12 +10,3 @@ export function callApi(endpoint, method = 'GET', body) {
     console.log(err);
   });
 }
-
-export async function callApiAsync(endpoint, method = 'GET', body) {
-  const res = await axios({
-    method: method,
-    url: `${Config.API_URL}/${endpoint}`,
-    data: body,
-  });
-  return res;
-}

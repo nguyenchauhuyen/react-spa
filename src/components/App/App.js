@@ -19,6 +19,8 @@ import '@fullcalendar/timegrid/main.css';
 import '../../styles/styles.scss';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 // import './App.scss';
+import Logo from '../../assets/images/logo.svg';
+import LogoWhite from '../../assets/images/logo-white.svg';
 
 class App extends Component {
   constructor() {
@@ -205,7 +207,7 @@ class App extends Component {
   }
 
   render() {
-    const logo = this.state.layoutColorMode === 'dark' ? 'http://localhost:4000/assets/images/logo-white.svg' : 'http://localhost:4000/assets/images/logo.svg';
+    const logo = this.state.layoutColorMode === 'dark' ? LogoWhite : Logo;
 
     const wrapperClass = classNames('layout-wrapper', {
       'layout-overlay': this.state.layoutMode === 'overlay',

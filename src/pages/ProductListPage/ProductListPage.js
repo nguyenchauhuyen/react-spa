@@ -13,7 +13,7 @@ import { ContextMenu } from 'primereact/contextmenu';
 
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actFetchProductsRequest, actDeleteProductRequest } from './../../actions/index';
+import { actFetchProductsRequest, actDeleteProductRequest } from '../../actions/productActions';
 
 class ProductListPage extends Component {
   constructor(props) {

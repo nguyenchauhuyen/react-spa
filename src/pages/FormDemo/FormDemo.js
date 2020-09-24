@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from './../../actions/index';
+import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from '../../actions/productActions';
 import { connect, bindActionCreators } from 'react-redux';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -353,7 +353,8 @@ class ProductActionPage extends Component {
       handleChange,
       handleBlur,
       handleSubmit,
-      isSubmitting
+      isSubmitting,
+      isValidating
     } = this.props;
     return (
       <div className="p-fluid">
@@ -532,7 +533,7 @@ class ProductActionPage extends Component {
                   <div className="p-col-12 p-md-2" style={{ textAlign: 'right' }}>
                     {isSubmitting && <ProgressSpinner style={{ width: '40px', height: '40px' }} strokeWidth="8" fill="#EEEEEE" animationDuration=".5s" />}
                     {!isSubmitting && <Button type="submit" label="Save" icon="pi pi-check" onClick={handleSubmit} disabled={isSubmitting} />}
-                    <ErrorFocus/>
+                    <ErrorFocus isSubmitting={isSubmitting} isValidating={isValidating} errors={errors} />
                   </div>
                 </div>
               </form>

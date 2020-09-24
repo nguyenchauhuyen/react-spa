@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Logo from '../../assets/images/logo.svg';
 export class Footer extends Component {
   render() {
     return (
@@ -7,7 +7,7 @@ export class Footer extends Component {
         <span className="footer-text" style={{ marginRight: '5px' }}>
           PrimeReact
         </span>
-        <img src="assets/images/logo.svg" alt="" width="80" />
+        <img src={Logo} alt="" width="80" />
         <span className="footer-text" style={{ marginLeft: '5px' }}>
           Theme and Layout
         </span>

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from './../../actions/index';
+import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from '../../actions/productActions';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 // import { AutoComplete } from 'primereact/autocomplete';
@@ -239,6 +239,7 @@ const ProductActionPage = props => {
     ],
   });
 
+  const msgs1 = useRef(null);
   useEffect(() => {
     if (id) {
       dispatch(actGetProductRequest(id));
@@ -262,37 +263,23 @@ const ProductActionPage = props => {
   //   setValues(values => ({ ...values, [name]: value }));
   // };
 
-  // const onSave = e => {
-  //   e.preventDefault();
-  //   var { id, txtName, txtPrice, chkbStatus } = this.state;
-  //   var { history } = this.props;
-  //   var product = {
-  //     id: id,
-  //     name: txtName,
-  //     price: txtPrice,
-  //     status: chkbStatus,
-  //   };
-  //   if (id) {
-  //     this.props.onUpdateProduct(product);
-  //   } else {
-  //     this.props.onAddProduct(product);
-  //   }
-  //   history.goBack();
-  // };
-
-  // const {
-  //   // values,
-  //   touched,
-  //   errors,
-  //   handleChange,
-  //   handleBlur,
-  //   handleSubmit,
-  //   isSubmitting
-  // } = props;
-
-  const handleSubmit = () => {
+  const handleSubmit = (values, actions) => {
     console.log('payload: ', values);
-    dispatch(actAddProductRequest(JSON.stringify(values, null, 2)));
+    //  await dispatch(actAddProductRequest(JSON.stringify(values, null, 2)));
+
+    dispatch(actAddProductRequest(JSON.stringify(values, null, 2))).then(
+      res => {
+        actions.setSubmitting(false);
+        console.log(res);
+        if (res.status === 201) {
+          msgs1.current.show([{ severity: 'success', summary: 'Success', detail: 'Message Content', sticky: true }]);
+        }
+      },
+      res => {
+        actions.setSubmitting(false);
+        msgs1.current.show([{ severity: 'error', summary: 'Error', detail: 'Message error', sticky: true }]);
+      },
+    );
   };
 
   const formik = useFormik({
@@ -308,19 +295,7 @@ const ProductActionPage = props => {
     <div className="p-fluid">
       <div className="p-grid">
         <div className="p-col-12">
-          {/* <div className="p-messages p-component p-messages-success" style={{ margin: '0 0 1em 0', display: 'block' }}>
-            <div className="p-messages-wrapper">
-              <span className="p-messages-icon pi pi-fw pi-2x pi-check"></span>
-              <ul>
-                <li>
-                  <span className="p-messages-detail">Designer API is a theme engine for the complete PrimeReact UI Suite and includes this demo application
-                  to test the commonly used components while designing your theme.
-                                      </span>
-                </li>
-              </ul>
-            </div>
-          </div> */}
-          {/* <Messages ref={(el) => this.msgs1 = el} /> */}
+          <Messages ref={msgs1} />
 
           <div className="card card-w-title">
             <h1>Form Elements</h1>
@@ -394,6 +369,7 @@ const ProductActionPage = props => {
                 <div className="p-col-12 p-md-4">
                   <InputMask id="mask" mask="99/99/9999" slotChar="dd/mm/yyyy" placeholder="Date" />
                 </div>
+                <div className="p-col-12 p-md-10" />
                 <div className="p-col-12 p-md-2" style={{ textAlign: 'right' }}>
                   {formik.isSubmitting && (
                     <ProgressSpinner
@@ -406,7 +382,11 @@ const ProductActionPage = props => {
                   {!formik.isSubmitting && (
                     <Button type="submit" label="Save" icon="pi pi-check" onClick={formik.handleSubmit} />
                   )}
-                  {/* <ErrorFocus/> */}
+                  <ErrorFocus
+                    isSubmitting={formik.isSubmitting}
+                    isValidating={formik.isValidating}
+                    errors={formik.errors}
+                  />
                 </div>
               </div>
             </form>
@@ -426,27 +406,5 @@ const validateSchema = yup.object({
   //         return parseInt(val) < 6 && parseInt(val) > 0;
   //     }),
 });
-
-// const Form = withFormik({
-//   mapPropsToValues: () => ({ name: '', email: '' }),
-//   validationSchema: validateSchema,
-//   handleSubmit(values, { props, setSubmitting }) {
-//     // const { actAddProductRequest } = props;
-//     console.log('submit');
-
-//     const dispatch = useDispatch();
-//     console.log('submit2');
-
-//     const payload = { email: values.email, name: values.name };
-//     console.log('submit3');
-//     dispatch(actAddProductRequest(payload)).then(() => setSubmitting(false))
-//   },
-// })(ProductActionPage);
-
-// const mapStateToProps = state => {
-//   return {
-//     itemEditing: state.itemEditing,
-//   };
-// };
 
 export default ProductActionPage;

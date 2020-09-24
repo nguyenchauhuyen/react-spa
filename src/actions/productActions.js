@@ -1,6 +1,5 @@
-import * as Types from './../constants/ActionTypes';
-import { callApi, callApiAsync } from './../utils/apiCaller';
-import * as Config from './../constants/Config';
+import * as Types from '../constants/ActionTypes';
+import { callApi } from '../utils/apiCaller';
 
 export const actFetchProductsRequest = () => {
   return dispatch => {
@@ -37,27 +36,15 @@ export const actAddProductRequest = product => {
   return async dispatch => {
     try {
       const res = await callApi('posts', 'POST', product);
-      console.log('res: ', res);
       dispatch({
         type: Types.ADD_PRODUCT,
         product: res.data,
       });
+      return Promise.resolve(res);
     } catch (e) {
       console.log('error: ', e);
+      return Promise.reject(e.response);
     }
-    // const res = await callApiAsync('posts', 'POST', product);
-    // const res = await axios({
-    //   method: 'POST',
-    //   url: `${Config.API_URL}/${product}`,
-    //   data: body,
-    // });
-
-    // console.log(res);
-
-    // if (res) {
-    //   dispatch(actAddProduct(res.data));
-    //   // return await Promise.resolve(1);
-    // }
   };
 };
 
