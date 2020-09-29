@@ -24,7 +24,7 @@ module.exports = merge(common, {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'media/[name].[ext]',
+          name: 'assets/media/[name].[ext]',
         },
       },
     ],

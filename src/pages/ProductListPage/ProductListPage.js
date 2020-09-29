@@ -302,23 +302,6 @@ class ProductListPage extends Component {
       </div>
     );
   }
-
-  // showProducts(products) {
-  //     var result = null;
-  //     if (products.length > 0) {
-  //         result = products.map((product, index) => {
-  //             return (
-  //                 <ProductItem
-  //                     key={index}
-  //                     product={product}
-  //                     index={index}
-  //                     onDelete={this.onDelete}
-  //                 />
-  //             );
-  //         });
-  //     }
-  //     return result;
-  // }
 }
 
 const mapStateToProps = state => {
