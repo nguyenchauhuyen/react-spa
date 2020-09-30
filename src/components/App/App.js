@@ -239,7 +239,7 @@ class App extends Component {
             <Route path="/" exact component={Dashboard} />
             <Route path="/forms" component={FormDemo} />
             <Route path="/product/add" component={ProductActionPage} />
-            <Route path="/product-list" component={ProductListPage} />
+            <Route path="/data" component={ProductListPage} />
             <Route path="*" component={NotFoundPage} />
           </Switch>
         </div>
