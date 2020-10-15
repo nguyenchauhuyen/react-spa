@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import ProductList from './../../components/ProductList/ProductList';
 import './ProductListPage.scss';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -253,9 +252,9 @@ class ProductListPage extends Component {
   render() {
     var { products } = this.props;
     const header = this.renderHeader();
-    const representativeFilter = this.renderRepresentativeFilter();
-    const dateFilter = this.renderDateFilter();
-    const statusFilter = this.renderStatusFilter();
+    // const representativeFilter = this.renderRepresentativeFilter();
+    // const dateFilter = this.renderDateFilter();
+    // const statusFilter = this.renderStatusFilter();
 
     return (
       <div className="datatable-doc-demo">
@@ -273,7 +272,7 @@ class ProductListPage extends Component {
             rowHover
             paginator
             rows={10}
-            emptyMessage="No customers found"
+            emptyMessage="No product found"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             selection={this.state.selectedCustomers}
             onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
@@ -284,18 +283,20 @@ class ProductListPage extends Component {
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
             rowsPerPageOptions={[10, 25, 50]}
           >
-            <Column rowReorder style={{ width: '3em' }} />
+            {/* <Column rowReorder style={{ width: '3em' }} /> */}
             <Column selectionMode="multiple" style={{ width: '3em' }} />
-            <Column field="id" header="Code" sortable filter></Column>
             <Column
-              field="title"
+              field="name"
               header="Name"
-              body={this.nameBodyTemplate}
               sortable
               filter
               filterPlaceholder="Search by name"
+              style={{ width: '20%' }}
             ></Column>
-            <Column field="body" header="Body"></Column>
+            <Column field="price" header="Price"></Column>
+            <Column field="merchantPrice" header="Merchant Price"></Column>
+            <Column field="category.name" header="Category"></Column>
+            <Column field="merchant.name" header="Merchant"></Column>
             <Column body={this.actionBodyTemplate} style={{ width: '150px' }}></Column>
           </DataTable>
         </div>
