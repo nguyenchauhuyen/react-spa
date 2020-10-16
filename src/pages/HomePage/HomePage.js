@@ -23,18 +23,18 @@ const Dashboard = () => {
     cities: [],
     weatherForecast: [],
     query: '',
-    loading: false
+    loading: false,
   });
 
   useEffect(() => {
-    (async () => {
+    (() => {
       if (cancel) {
         //Cancel previous request
         cancel();
       }
-      try {
-        if (state.query.length) {
-          const res = await axios.get(
+      if (state.query.length) {
+        axios
+          .get(
             `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?query=${state.query}`,
             {
               cancelToken: new CancelToken(function executor(c) {
@@ -42,12 +42,10 @@ const Dashboard = () => {
                 cancel = c;
               }),
             },
-          );
-          setState(state => ({ ...state, cities: res.data }));
-        }
-      } catch (error) {
-        // handle error
-        console.log(error);
+          )
+          .then(res => {
+            setState(state => ({ ...state, cities: res.data }));
+          });
       }
     })();
   }, [state.query]);
@@ -63,11 +61,11 @@ const Dashboard = () => {
 
   const searchCityByName = event => {
     // setTimeout(() => {
-      if (!event.query.trim().length) {
-        setState(state => ({ ...state, cities: [...state.cities] }));
-      } else {
-        setState(state => ({ ...state, query: event.query.trim(), selectedCity: null }));
-      }
+    if (!event.query.trim().length) {
+      setState(state => ({ ...state, cities: [...state.cities] }));
+    } else {
+      setState(state => ({ ...state, query: event.query.trim(), selectedCity: null }));
+    }
     // }, 250);
   };
 
@@ -97,20 +95,24 @@ const Dashboard = () => {
           animationDuration=".5s"
         />
       )}
-      {!state.loading && weather.list.map(item => {
-        return (
-          <div className="p-col-12 p-lg-4" key={item.applicable_date}>
-            <div className="card summary">
-              <span className="title">{moment(item.applicable_date).format('dddd ll')}</span>
-              <span className="detail">Min Temprature: {item.min_temp.toFixed(2)}</span>
-              <span className="detail">Max Temprature: {item.max_temp.toFixed(2)}</span>
-              <span className="count visitors">
-                <img src={`https://www.metaweather.com/static/img/weather/${item.weather_state_abbr}.svg`} style={{width: 32 }}/>
-              </span>
+      {!state.loading &&
+        weather.list.map(item => {
+          return (
+            <div className="p-col-12 p-lg-4 weather-forecast" key={item.applicable_date}>
+              <div className="card summary">
+                <span className="title">{moment(item.applicable_date).format('dddd ll')}</span>
+                <span className="detail">Min Temprature: {item.min_temp.toFixed(2)}</span>
+                <span className="detail">Max Temprature: {item.max_temp.toFixed(2)}</span>
+                <span className="count visitors">
+                  <img
+                    src={`https://www.metaweather.com/static/img/weather/${item.weather_state_abbr}.svg`}
+                    style={{ width: 32 }}
+                  />
+                </span>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 };
