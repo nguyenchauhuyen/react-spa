@@ -101,8 +101,8 @@ const Dashboard = () => {
             <div className="p-col-12 p-lg-4 weather-forecast" key={item.applicable_date}>
               <div className="card summary">
                 <span className="title">{moment(item.applicable_date).format('dddd ll')}</span>
-                <span className="detail">Min Temprature: {item.min_temp.toFixed(2)}</span>
-                <span className="detail">Max Temprature: {item.max_temp.toFixed(2)}</span>
+                <span className="detail min-temp">Min Temperature: {item.min_temp.toFixed(2)}</span>
+                <span className="detail max-temp">Max Temperature: {item.max_temp.toFixed(2)}</span>
                 <span className="count visitors">
                   <img
                     src={`https://www.metaweather.com/static/img/weather/${item.weather_state_abbr}.svg`}
