@@ -3,11 +3,11 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
-import HomePage from './HomePage';
+import Dashboard from './Dashboard';
 
 const mockStore = configureStore([]);
 
-describe('HomePage', () => {
+describe('Dashboard', () => {
   let wrapper;
   let useEffect = jest.spyOn(React, 'useEffect');
 
@@ -43,7 +43,7 @@ describe('HomePage', () => {
       // mockUseEffect();
       wrapper = mount(
         <Provider store={store}>
-          <HomePage />
+          <Dashboard />
         </Provider>,
       );
     });
@@ -58,7 +58,7 @@ describe('HomePage', () => {
   });
 
   describe('given selected location', () => {
-    // let handleChangeSpy = sinon.spy(HomePage.prototype, "onCityChange");
+    // let handleChangeSpy = sinon.spy(Dashboard.prototype, "onCityChange");
 
     beforeEach(() => {
       let store = mockStore({
@@ -174,7 +174,7 @@ describe('HomePage', () => {
       store.dispatch = jest.fn(originalDispatch);
       wrapper = mount(
         <Provider store={store}>
-          <HomePage />
+          <Dashboard />
         </Provider>,
       );
     });
