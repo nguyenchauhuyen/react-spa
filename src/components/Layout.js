@@ -1,28 +1,12 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { Header } from '../Header/Header';
-import { Footer } from '../Footer/Footer';
-import { SideMenu } from '../Menu/SideMenu';
-// import {AppProfile} from './AppProfile';
-import { Route, Switch } from 'react-router-dom';
-import Dashboard from '../../pages/HomePage/HomePage';
-import FormDemo from '../../pages/FormDemo/FormDemo';
-import ProductListPage from '../../pages/ProductListPage/ProductListPage';
-import ProductActionPage from '../../pages/ProductActionPage/ProductActionPage';
-import 'primereact/resources/themes/saga-blue/theme.css';
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-import 'primeflex/primeflex.css';
-import '@fullcalendar/core/main.css';
-import '@fullcalendar/daygrid/main.css';
-import '@fullcalendar/timegrid/main.css';
-import '../../styles/styles.scss';
-import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
-// import './App.scss';
-import Logo from '../../assets/images/logo.svg';
-import LogoWhite from '../../assets/images/logo-white.svg';
+import { Header } from './Header/Header';
+import { Footer } from './Footer/Footer';
+import { SideMenu } from './Menu/SideMenu';
+import Logo from '../assets/images/logo.svg';
+import LogoWhite from '../assets/images/logo-white.svg';
 
-class App extends Component {
+class Layout extends Component {
   constructor() {
     super();
     this.state = {
@@ -225,24 +209,13 @@ class App extends Component {
     return (
       <div className={wrapperClass} onClick={this.onWrapperClick}>
         <Header onToggleMenu={this.onToggleMenu} />
-
         <div ref={el => (this.sidebar = el)} className={sidebarClassName} onClick={this.onSidebarClick}>
           <div className="layout-logo">
             <img alt="Logo" src={logo} />
           </div>
-          {/* <AppProfile /> */}
           <SideMenu model={this.menu} onMenuItemClick={this.onMenuItemClick} />
         </div>
-
-        <div className="layout-main">
-          <Switch>
-            <Route path="/" exact component={Dashboard} />
-            <Route path="/forms" component={FormDemo} />
-            <Route path="/product/add" component={ProductActionPage} />
-            <Route path="/data" component={ProductListPage} />
-            <Route path="*" component={NotFoundPage} />
-          </Switch>
-        </div>
+        <div className="layout-main">{this.props.children}</div>
         <Footer />
         <div className="layout-mask"></div>
       </div>
@@ -250,4 +223,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Layout;

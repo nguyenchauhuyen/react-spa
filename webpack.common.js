@@ -38,6 +38,10 @@ module.exports = {
       'chart.js',
       'classnames',
       'react-transition-group',
+      'redux-saga',
+      'redux-persist',
+      'reselect',
+      'styled-components',
     ],
   },
   output: {
