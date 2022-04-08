@@ -61,11 +61,17 @@ const RegisterForm = () => {
     return isFormFieldValid(name) && <small className="p-error">{formik.errors[name]}</small>;
   };
 
+  const onCloseDialog = () => {
+    window.location.replace('/login');
+    setShowMessage(false);
+  };
+
   const dialogFooter = (
     <div className="flex justify-content-center">
-      <Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false)} />
+      <Button label="OK" className="p-button-text" autoFocus onClick={onCloseDialog} />
     </div>
   );
+
   const passwordHeader = <h6>Pick a password</h6>;
   const passwordFooter = (
     <React.Fragment>
@@ -84,19 +90,19 @@ const RegisterForm = () => {
     <FormWrapper>
       <Dialog
         visible={showMessage}
-        onHide={() => setShowMessage(false)}
+        onHide={onCloseDialog}
         position="top"
         footer={dialogFooter}
         showHeader={false}
         breakpoints={{ '960px': '80vw' }}
-        style={{ width: '30vw' }}
+        style={{ width: '30vw', textAlign: 'center' }}
       >
         <div className="flex align-items-center flex-column pt-6 px-3">
           <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
           <h5>Registration Successful!</h5>
           <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
-            Your account is registered under name <b>{submitData.name}</b> ; it'll be valid next 30 days without activation.
-            Please check <b>{submitData.email}</b> for activation instructions.
+            Your account is registered under name <b>{submitData.name}</b> ; it'll be valid next 30 days without
+            activation. Please check <b>{submitData.email}</b> for activation instructions.
           </p>
         </div>
       </Dialog>

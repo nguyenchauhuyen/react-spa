@@ -9,7 +9,7 @@ import { rootSaga } from './rootSagas';
 const persistConfig = {
   key: 'rootPersist',
   storage,
-  blacklist: ['loginReducer', 'registerReducer'],
+  // blacklist: ['loginReducer', 'registerReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

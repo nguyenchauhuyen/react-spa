@@ -4,13 +4,13 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
 import { Dialog } from 'primereact/dialog';
-import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import styled from 'styled-components';
+import { useRegister } from '../Register/hooks';
 
 const LoginForm = () => {
   const [showMessage, setShowMessage] = useState(false);
-  const [formData, setFormData] = useState({});
+  const { data: registerAccount } = useRegister();
 
   useEffect(() => {}, []);
   const formik = useFormik({
@@ -25,10 +25,6 @@ const LoginForm = () => {
     validate: data => {
       let errors = {};
 
-      if (!data.name) {
-        errors.name = 'Name is required.';
-      }
-
       if (!data.email) {
         errors.email = 'Email is required.';
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
@@ -39,15 +35,16 @@ const LoginForm = () => {
         errors.password = 'Password is required.';
       }
 
-      if (!data.accept) {
-        errors.accept = 'You need to agree to the terms and conditions.';
-      }
-
       return errors;
     },
     onSubmit: data => {
-      setFormData(data);
-      setShowMessage(true);
+      console.log(registerAccount)
+      if (data.email === registerAccount.email && data.password === registerAccount.password) {
+        sessionStorage.setItem('accessToken', registerAccount.email);
+        window.location.replace('/dashboard');
+      } else {
+        setShowMessage(true);
+      }
 
       formik.resetForm();
     },
@@ -63,19 +60,6 @@ const LoginForm = () => {
       <Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false)} />
     </div>
   );
-  const passwordHeader = <h6>Pick a password</h6>;
-  const passwordFooter = (
-    <React.Fragment>
-      <Divider />
-      <p className="mt-2">Suggestions</p>
-      <ul className="pl-2 ml-2 mt-0" style={{ lineHeight: '1.5' }}>
-        <li>At least one lowercase</li>
-        <li>At least one uppercase</li>
-        <li>At least one numeric</li>
-        <li>Minimum 8 characters</li>
-      </ul>
-    </React.Fragment>
-  );
 
   return (
     <FormWrapper>
@@ -86,15 +70,12 @@ const LoginForm = () => {
         footer={dialogFooter}
         showHeader={false}
         breakpoints={{ '960px': '80vw' }}
-        style={{ width: '30vw' }}
+        style={{ width: '30vw', textAlign: 'center' }}
       >
         <div className="flex align-items-center flex-column pt-6 px-3">
-          <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
-          <h5>Registration Successful!</h5>
-          <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
-            Your account is registered under name <b>{formData.name}</b> ; it'll be valid next 30 days without
-            activation. Please check <b>{formData.email}</b> for activation instructions.
-          </p>
+          <i className="pi pi-exclamation-triangle" style={{ fontSize: '5rem', color: 'var(--pink-500)' }}></i>
+          <h5>Incorrect email or password!</h5>
+          <p>Your account will be blocked when reaching 10 failed login attempts.</p>
         </div>
       </Dialog>
 
@@ -127,8 +108,7 @@ const LoginForm = () => {
                   onChange={formik.handleChange}
                   toggleMask={false}
                   className={classNames({ 'p-invalid': isFormFieldValid('password') })}
-                  header={passwordHeader}
-                  footer={passwordFooter}
+                  // header={passwordHeader}
                 />
                 <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid('password') })}>
                   Password*

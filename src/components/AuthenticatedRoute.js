@@ -37,7 +37,13 @@ export default class AuthenticatedRoute extends Component {
             return (
               <div className="layout-wrapper">
                 <div className="layout-main">
-                  <Component {...props} />
+                  <div className="p-grid">
+                    <div className="p-col-4" />
+                    <div className="p-col-4">
+                      <Component {...props} />
+                    </div>
+                    <div className="p-col-4" />
+                  </div>
                 </div>
               </div>
             );

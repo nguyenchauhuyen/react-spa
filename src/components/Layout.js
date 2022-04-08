@@ -106,64 +106,6 @@ class Layout extends Component {
           { label: 'Misc', icon: 'pi pi-fw pi-upload', to: '/misc' },
         ],
       },
-      {
-        label: 'Template Pages',
-        icon: 'pi pi-fw pi-file',
-        items: [{ label: 'Empty Page', icon: 'pi pi-fw pi-circle-off', to: '/empty' }],
-      },
-      {
-        label: 'Menu Hierarchy',
-        icon: 'pi pi-fw pi-search',
-        items: [
-          {
-            label: 'Submenu 1',
-            icon: 'pi pi-fw pi-bookmark',
-            items: [
-              {
-                label: 'Submenu 1.1',
-                icon: 'pi pi-fw pi-bookmark',
-                items: [
-                  { label: 'Submenu 1.1.1', icon: 'pi pi-fw pi-bookmark' },
-                  { label: 'Submenu 1.1.2', icon: 'pi pi-fw pi-bookmark' },
-                  { label: 'Submenu 1.1.3', icon: 'pi pi-fw pi-bookmark' },
-                ],
-              },
-              {
-                label: 'Submenu 1.2',
-                icon: 'pi pi-fw pi-bookmark',
-                items: [
-                  { label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark' },
-                  { label: 'Submenu 1.2.2', icon: 'pi pi-fw pi-bookmark' },
-                ],
-              },
-            ],
-          },
-          {
-            label: 'Submenu 2',
-            icon: 'pi pi-fw pi-bookmark',
-            items: [
-              {
-                label: 'Submenu 2.1',
-                icon: 'pi pi-fw pi-bookmark',
-                items: [
-                  { label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark' },
-                  { label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark' },
-                  { label: 'Submenu 2.1.3', icon: 'pi pi-fw pi-bookmark' },
-                ],
-              },
-              {
-                label: 'Submenu 2.2',
-                icon: 'pi pi-fw pi-bookmark',
-                items: [
-                  { label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark' },
-                  { label: 'Submenu 2.2.2', icon: 'pi pi-fw pi-bookmark' },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      // { label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => { window.location = "#/documentation" } },
     ];
   }
 

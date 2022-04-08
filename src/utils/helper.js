@@ -6,6 +6,7 @@ const apiGateWay = (apiMethod, res) => {
     method: apiMethod,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*',
     },
     withCredentials: true,
     // responseType: 'json',

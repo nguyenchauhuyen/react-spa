@@ -8,10 +8,6 @@ function* registerAccount(action) {
   try {
     const res = yield call(Api.registerAccount, {
       ...action.payload,
-      id: 1,
-      userId: 1,
-      title: 'registration done',
-      body: 'register success',
     });
 
     console.log(res);
@@ -19,7 +15,7 @@ function* registerAccount(action) {
     //Register Success
     yield put(
       registerActions.registerSuccess({
-        payload: res,
+        payload: action.payload,
       }),
     );
   } catch (e) {
