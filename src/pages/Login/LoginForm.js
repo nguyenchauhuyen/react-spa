@@ -38,10 +38,9 @@ const LoginForm = () => {
       return errors;
     },
     onSubmit: data => {
-      console.log(registerAccount)
       if (data.email === registerAccount.email && data.password === registerAccount.password) {
         sessionStorage.setItem('accessToken', registerAccount.email);
-        window.location.replace('/dashboard');
+        window.location.replace('/');
       } else {
         setShowMessage(true);
       }

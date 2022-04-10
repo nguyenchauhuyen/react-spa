@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
           isError: false,
           response: action.response,
         },
-        data: action.payload,
+        data: { ...state.data, ...action.payload },
       };
     }
     default:

@@ -1,5 +1,6 @@
 // import { api } from '../../utils/helper';
 
+//Fake API for registration
 export const registerAccount = payload => {
   return fetch('https://reqres.in/api/users', {
     method: 'POST',
@@ -7,12 +8,4 @@ export const registerAccount = payload => {
   }).then(function (res) {
     return res.json();
   });
-  // return api
-  //   .post({
-  //     url: `https://reqres.in/api/users`,
-  //     data: payload,
-  //   })
-  //   .then(response => {
-  //     return response.data;
-  //   });
 };

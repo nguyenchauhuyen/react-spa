@@ -62,7 +62,7 @@ const RegisterForm = () => {
   };
 
   const onCloseDialog = () => {
-    window.location.replace('/login');
+    // window.location.replace('/login');
     setShowMessage(false);
   };
 
