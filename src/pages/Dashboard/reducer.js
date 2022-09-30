@@ -1,19 +1,16 @@
 import { repositoryContansts } from './constants';
 
 const initialState = {
-  data: [],
+  data: [{ name: 'GrahamCampbell' }, { name: 'fabpot' }, { name: 'weierophinney' }, { name: 'rkh' }, { name: 'josh' }],
   loaders: {
     isLoading: false,
     isError: false,
     isSuccess: false,
-    response: {},
   },
   shareLinkedInLoaders: {
     isLoading: false,
     isError: false,
     isSuccess: false,
-    response: {},
-    request: {},
   },
 };
 
@@ -27,7 +24,6 @@ export default (state = initialState, action) => {
           isLoading: true,
           isSuccess: false,
           isError: false,
-          response: {},
         },
       };
     }
@@ -66,7 +62,7 @@ export default (state = initialState, action) => {
           isLoading: true,
           isSuccess: false,
           isError: false,
-          response: {},
+
           request: action.payload,
         },
       };

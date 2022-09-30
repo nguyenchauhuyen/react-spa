@@ -1,4 +1,4 @@
-import { registerContansts } from './constants';
+import { accountContansts } from './constants';
 
 const initialState = {
   data: {},
@@ -12,7 +12,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case registerContansts.REGISTER_REQUEST: {
+    case accountContansts.account_REQUEST: {
       return {
         ...state,
         loaders: {
@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
         },
       };
     }
-    case registerContansts.REGISTER_FAILURE: {
+    case accountContansts.account_FAILURE: {
       return {
         ...state,
         loaders: {
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
         },
       };
     }
-    case registerContansts.REGISTER_SUCESS: {
+    case accountContansts.account_SUCESS: {
       return {
         ...state,
         loaders: {
@@ -44,7 +44,6 @@ export default (state = initialState, action) => {
           isLoading: false,
           isSuccess: true,
           isError: false,
-          response: action.response,
         },
         data: { ...state.data, ...action.payload },
       };

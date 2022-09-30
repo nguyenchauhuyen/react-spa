@@ -11,8 +11,7 @@ import '@fullcalendar/timegrid/main.css';
 import './styles/styles.scss';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
-import { RegisterForm } from './pages/Register';
-import { LoginForm } from './pages/Login';
+import AccountDetailPage from './pages/User/UserForm';
 
 class App extends Component {
   constructor() {
@@ -23,8 +22,7 @@ class App extends Component {
     return (
       <Switch>
         <AuthenticatedRoute path="/" exact component={Dashboard} />
-        <AuthenticatedRoute path="/login" component={LoginForm} isPublic />
-        <AuthenticatedRoute path="/register" component={RegisterForm} isPublic />
+        <AuthenticatedRoute path="/account/:id" component={AccountDetailPage} />
         <AuthenticatedRoute path="*" component={NotFoundPage} />
       </Switch>
     );

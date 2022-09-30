@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import registerReducer from '../pages/Register/reducer';
+import userReducer from '../pages/User/reducer';
 import repositoryReducer from '../pages/Dashboard/reducer';
 
 export const rootReducer = combineReducers({
   repositoryReducer,
-  registerReducer,
+  userReducer,
 });
