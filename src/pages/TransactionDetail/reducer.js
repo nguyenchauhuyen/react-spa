@@ -1,17 +1,18 @@
-import { repositoryContansts } from './constants';
+import { contansts } from './constants';
 
 const initialState = {
-  data: [],
+  data: {},
   loaders: {
     isLoading: false,
     isError: false,
     isSuccess: false,
+    response: {},
   },
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case repositoryContansts.GET_REPOSITORY_REQUEST: {
+    case contansts.transaction_REQUEST: {
       return {
         ...state,
         loaders: {
@@ -19,10 +20,11 @@ export default (state = initialState, action) => {
           isLoading: true,
           isSuccess: false,
           isError: false,
+          response: {},
         },
       };
     }
-    case repositoryContansts.GET_REPOSITORY_FAILURE: {
+    case contansts.transaction_FAILURE: {
       return {
         ...state,
         loaders: {
@@ -34,7 +36,7 @@ export default (state = initialState, action) => {
         },
       };
     }
-    case repositoryContansts.GET_REPOSITORY_SUCESS: {
+    case contansts.transaction_SUCESS: {
       return {
         ...state,
         loaders: {
@@ -42,12 +44,10 @@ export default (state = initialState, action) => {
           isLoading: false,
           isSuccess: true,
           isError: false,
-          response: action.response,
         },
-        data: action.payload,
+        data: { ...state.data, ...action.payload },
       };
     }
-
     default:
       return state;
   }

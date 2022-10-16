@@ -1,5 +1,5 @@
 import { fork, all } from 'redux-saga/effects';
-import registerSaga from '../pages/User/saga';
+import registerSaga from '../pages/TransactionDetail/saga';
 import dashboardSaga from '../pages/Dashboard/saga';
 
 export function* rootSaga() {

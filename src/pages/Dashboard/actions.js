@@ -14,17 +14,4 @@ export const repositoryActions = {
     type: repositoryContansts.GET_REPOSITORY_SUCESS,
     response: {},
   }),
-  shareLinkedInRequest: payload => ({
-    type: repositoryContansts.SHARE_LINKEDIN_REQUEST,
-    payload,
-  }),
-  shareLinkedInFailure: () => ({
-    type: repositoryContansts.SHARE_LINKEDIN_FAILURE,
-    response: {},
-  }),
-  shareLinkedInSuccess: ({ payload }) => ({
-    payload,
-    type: repositoryContansts.SHARE_LINKEDIN_SUCESS,
-    response: {},
-  }),
 };
